@@ -11,8 +11,42 @@
     justify-content: center;
     display: flex;
     background-color: #e2e2e2;
+    position: relative;
 }
 
+
+.slider{
+    width: 300px;
+    height: 100vh;
+    background: #383838;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transform: translateX(-100%);
+    transition: ease-in-out 400ms;
+
+    display: flex;
+    flex-direction: column;
+padding: 150px 20px;
+}
+
+
+.timebtn{
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+.timebtn.select{
+    background: #b0b0b0;
+}
+
+.slider.show{
+    transform: translateX(0);
+    transition: ease-in-out 400ms;
+}
 
 .timer_left_container{
     display: flex;

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import './TimerScreen.css';
 import 'animate.css';
 import { TimerData } from './TimerData';
-
+import { IoMdClose } from "react-icons/io";
 import { FaCirclePlay, FaCirclePause, FaBarsStaggered, FaMoon } from "react-icons/fa6";
 import { BiReset, BiSolidUserVoice } from "react-icons/bi";
 import { PiBellRingingLight } from "react-icons/pi";
@@ -16,6 +16,7 @@ import PreTimer from "./PreTimer/PreTimer";
 
 const TimerScreen = () => {
     const [autoStart, setAutoStart] = useState(false)
+    const [menu, setMenu] = useState(false)
 
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -43,6 +44,7 @@ const TimerScreen = () => {
     const warningTimeInSeconds = parseTimeToSeconds(TimerData[selectedTimerIndex].warning);
     const finalTimeInSeconds = parseTimeToSeconds(TimerData[selectedTimerIndex].final);
 
+    console.log(menu)
     useEffect(() => {
         let timerInterval;
         if (isRunning) {
@@ -286,8 +288,29 @@ const TimerScreen = () => {
 
     return (
         <div className="timer_container">
-            <div className="timer_left_container">
-                <FaBarsStaggered />
+<div className={menu ? "slider" : "slider show"}>
+
+
+{TimerData.map((data, index) => (
+                        <button
+                            key={data.id}
+                            onClick={() => {handleTimerSelection(index); setMenu(!menu)} }
+                            className={selectedTimerIndex === index ? "selected timebtn select" : "timebtn"}
+                        >
+                             {data.time + "min" }
+                        </button>
+                    ))}
+
+</div>
+<div className="timer_left_container">
+
+    {menu? <FaBarsStaggered style={{zIndex:"10" }} onClick={()=>setMenu(!menu)}/>: 
+    
+    <IoMdClose style={{zIndex:"10", color:"#e2e2e2"}} 
+    onClick={()=>setMenu(!menu)}
+    />
+}
+                
             </div>
 
             <div className="timer_main_container">
@@ -348,15 +371,7 @@ const TimerScreen = () => {
 
                 {/* Timer selection controls */}
                 <div className="timer_selection">
-                    {TimerData.map((data, index) => (
-                        <button
-                            key={data.id}
-                            onClick={() => handleTimerSelection(index)}
-                            className={selectedTimerIndex === index ? "selected" : ""}
-                        >
-                            Timer {index + 1}
-                        </button>
-                    ))}
+                    
                 </div>
             </div>
 

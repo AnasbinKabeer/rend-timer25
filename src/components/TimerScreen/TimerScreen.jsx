@@ -297,7 +297,7 @@ const TimerScreen = () => {
                             onClick={() => {handleTimerSelection(index); setMenu(!menu)} }
                             className={selectedTimerIndex === index ? "selected timebtn select" : "timebtn"}
                         >
-                             {data.time +  " minuites" }
+                             {data.time +  " minutes" }
                         </button>
                     ))}
 

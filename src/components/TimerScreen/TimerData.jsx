@@ -1,9 +1,5 @@
 export const TimerData = [
-    {
-        id: "4",
-        warning: "00:05",
-        final: "00:10"
-    },
+
     {
         id: "1",
         warning: "4:30",

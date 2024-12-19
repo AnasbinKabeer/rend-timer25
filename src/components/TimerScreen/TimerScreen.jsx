@@ -297,16 +297,16 @@ const TimerScreen = () => {
                             onClick={() => {handleTimerSelection(index); setMenu(!menu)} }
                             className={selectedTimerIndex === index ? "selected timebtn select" : "timebtn"}
                         >
-                             {data.time + "min" }
+                             {data.time +  " minuites" }
                         </button>
                     ))}
 
 </div>
 <div className="timer_left_container">
 
-    {menu? <FaBarsStaggered style={{zIndex:"10" }} onClick={()=>setMenu(!menu)}/>: 
+    {menu? "": 
     
-    <IoMdClose style={{zIndex:"10", color:"#e2e2e2"}} 
+    <FaBarsStaggered style={{zIndex:"10"}} 
     onClick={()=>setMenu(!menu)}
     />
 }

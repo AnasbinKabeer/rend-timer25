@@ -22,7 +22,7 @@ const TimerScreen = () => {
     const [alertMessage, setAlertMessage] = useState("");
     const [showPauseIcon, setShowPauseIcon] = useState(false);
     const [cancelVisible, setCancelVisible] = useState(false);
-    const [isBellRinging, setIsBellRinging] = useState(false);
+    const [, setIsBellRinging] = useState(false);
     const [clickTimeout, setClickTimeout] = useState(null);
     const [animation, setAnimation] = useState("");
 
@@ -60,6 +60,7 @@ const TimerScreen = () => {
         if (time === finalTimeInSeconds) {
             autoLastBell();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time, warningTimeInSeconds, finalTimeInSeconds]);
 
     const displayFinalTimePlus3 = (timeStr) => {
@@ -80,7 +81,7 @@ const TimerScreen = () => {
 
 
 
-    console.log(selectedTimerIndex)
+    console.log(animation)
 
     const startTimer = () => {
         setDisbell(true);
@@ -91,7 +92,7 @@ const TimerScreen = () => {
         setCancelVisible(false);
 
         setTimeout(() => {
-            setAnimation("animate__fadeOutUp");
+         
             setTimeout(() => {
                 setAlertMessage("");
                 setAnimation("");
@@ -101,6 +102,16 @@ const TimerScreen = () => {
     };
 
     const pauseTimer = () => {
+
+
+        if (countdownIntervalRef.current) {
+            clearInterval(countdownIntervalRef.current);
+            countdownIntervalRef.current = null;
+        }
+
+        autoLastBellRef.current.pause();
+        autoLastBellRef.current.currentTime = 0;
+
         setIsRunning(false);
         setShowPauseIcon(false);
         setAlertMessage("~Timer paused~");
@@ -110,12 +121,23 @@ const TimerScreen = () => {
     };
 
     const resetTimer = () => {
+
+        if (countdownIntervalRef.current) {
+            clearInterval(countdownIntervalRef.current);
+            countdownIntervalRef.current = null;
+        }
+
+        autoLastBellRef.current.pause();
+        autoLastBellRef.current.currentTime = 0;
+
+     
+
         setTime(0);
         setIsRunning(false);
         setShowPauseIcon(false);
         setDisbell(true);
         setAlertMessage("Timer has been reset");
-        setAnimation("animate__pulse");
+        setAnimation("");
         setCancelVisible(false);
         setTimeout(() => {
             setDisbell(false);
@@ -192,15 +214,18 @@ const TimerScreen = () => {
 
         autoLastBellRef.current.pause();
         autoLastBellRef.current.currentTime = 0;
+        
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
 
         setAlertMessage("Bell stopped");
         setCancelVisible(false);
         setDisbell(false);
+       
 
         setInterval(() => {
             setAlertMessage("");
+            triggerAnimation("");
         }, 1000);
     };
 
@@ -336,20 +361,21 @@ const TimerScreen = () => {
             </div>
 
             <div className="timer_right_container">
+                
                 <div className="theme_changer">
 
-                    <div className="toggle-container">
+                   
+                <div className="toggle-container">
 
-                        <div
-                            className={`toggle-button ${autoStart ? "on" : "off"}`}
-                            onClick={() => setAutoStart(!autoStart)}
-                        >
-                            <div className="toggle-circle"></div>
-                        </div>
-                        <p className="toggle-status">{autoStart ? "ON" : "OFF"}</p>
-                    </div>
-
-                    <FaMoon />
+<div
+    className={`toggle-button ${autoStart ? "on" : "off"}`}
+    onClick={() => setAutoStart(!autoStart)}
+>
+    <div className="toggle-circle"></div>
+</div>
+<p className="toggle-status">{autoStart ? "ON" : "OFF"}</p>
+</div>
+                    {/* <FaMoon /> */}
 
 
 

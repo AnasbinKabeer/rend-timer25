@@ -1,4 +1,4 @@
-import React from 'react'
+
 import TimerScreen from './components/TimerScreen/TimerScreen';
 
 const App = () => {

@@ -288,7 +288,7 @@ const TimerScreen = () => {
 
     return (
         <div className="timer_container">
-<div className={menu ? "slider" : "slider show"}>
+<div className={menu ? "slider show" : "slider"}>
 
 
 {TimerData.map((data, index) => (

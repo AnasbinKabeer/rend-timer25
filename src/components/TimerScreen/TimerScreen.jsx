@@ -26,10 +26,10 @@ const TimerScreen = () => {
     const [clickTimeout, setClickTimeout] = useState(null);
     const [animation, setAnimation] = useState("");
 
-    const audioRef = useRef(new Audio('src/assets/warning.mp3'));
-    const lastBellRef = useRef(new Audio('src/assets/last.mp3'));
-    const autoWarnimgBellRef = useRef(new Audio('src/assets/autoWarning.mp3'));
-    const autoLastBellRef = useRef(new Audio('src/assets/autolast.mp3'));
+    const audioRef = useRef(new Audio('/warning.mp3'));
+    const lastBellRef = useRef(new Audio('/last.mp3'));
+    const autoWarnimgBellRef = useRef(new Audio('/autoWarning.mp3'));
+    const autoLastBellRef = useRef(new Audio('/autolast.mp3'));
     const [disbell, setDisbell] = useState(false);
     const [selectedTimerIndex, setSelectedTimerIndex] = useState(0);
     const countdownIntervalRef = useRef(null);

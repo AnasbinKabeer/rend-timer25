@@ -15,6 +15,7 @@ import { TimerContext } from "../Context/TimerContext";
 // import JudgeView from '../../components/viewbygpt';
 
 const TimerScreen = () => {
+    const [autoBellEnabled, setAutoBellEnabled] = useState(true); 
     const [autoStart, setAutoStart] = useState(false)
     const [menu, setMenu] = useState(false)
   const { timeId } = useContext(TimerContext);
@@ -157,6 +158,7 @@ const TimerScreen = () => {
 
 
     const autoLastBell = () => {
+        if (!autoBellEnabled) return; // Exit if auto bells are disabled
         setDisbell(true);
         let countdown = 10;
         setAlertMessage(`Final bell rings in ${countdown} seconds`);
@@ -165,24 +167,26 @@ const TimerScreen = () => {
         countdownIntervalRef.current = setInterval(() => {
             countdown -= 1;
             setAlertMessage(`Final bell rings in ${countdown} seconds`);
-
-
+    
             if (countdown === 0) {
                 clearInterval(countdownIntervalRef.current);
                 setCancelVisible(false);
-
+    
                 setAlertMessage("Final Bell");
                 triggerAnimation("fadeInDown");
-
+    
                 setTimeout(() => {
                     setAlertMessage("");
                     setDisbell(false);
                 }, 1000);
             }
         }, 1005);
-
+    
         autoLastBellRef.current.play();
     };
+
+
+
 
     const playWarningBell = () => {
         setDisbell(true);
@@ -249,17 +253,18 @@ const TimerScreen = () => {
         }, 2000);
     };
 
-    const autoWarningBell = () => {
-        setAlertMessage("Warning bell!");
-        autoWarnimgBellRef.current.play();
-        setDisbell(true);
-        triggerAnimation("fadeInDown");
+  const autoWarningBell = () => {
+    if (!autoBellEnabled) return; // Exit if auto bells are disabled
+    setAlertMessage("Warning bell!");
+    autoWarnimgBellRef.current.play();
+    setDisbell(true);
+    triggerAnimation("fadeInDown");
 
-        setTimeout(() => {
-            setAlertMessage("");
-            setDisbell(false);
-        }, 3000);
-    };
+    setTimeout(() => {
+        setAlertMessage("");
+        setDisbell(false);
+    }, 3000);
+};
 
 
     const handleBellClick = () => {
@@ -361,7 +366,7 @@ const TimerScreen = () => {
                     </div>
                 </div>
 
-                <div className="timer_main_showcase">
+             {autoBellEnabled?    <div className="timer_main_showcase">
                     <div className="arrow_left time_slider"></div>
 
                     <div className="warning_time">
@@ -390,7 +395,7 @@ const TimerScreen = () => {
                         
                     </div>
                     <div className="arrow_right time_slider"></div>
-                </div>
+                </div>: ""}
 
                 {/* Timer selection controls */}
                 <div className="timer_selection">
@@ -423,7 +428,8 @@ const TimerScreen = () => {
 
 
 
-                    <div className="voice_controller"><BiSolidUserVoice /></div>
+                    <div className={`voice_controller ${autoBellEnabled ? "focus" : ""}`}><BiSolidUserVoice 
+                    onClick={()=>setAutoBellEnabled(!autoBellEnabled)}/></div>
                     <div className="auto_bell"><MdAutoAwesome /></div>
                 </div>
             </div>

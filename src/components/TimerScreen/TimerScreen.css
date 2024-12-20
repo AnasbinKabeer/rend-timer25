@@ -210,8 +210,7 @@ margin-right: 30px;
 }
 
 .voice_controller, .auto_bell{
-    background: white;
-    color: #000;
+   
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -221,7 +220,18 @@ margin-right: 30px;
     text-align: center;
     font-size: 20px;
     cursor: pointer;
+    background: #00000068;
+    color:rgba(255, 255, 255, 0.801) 
 }
+
+.voice_controller.focus{
+    background: white;
+    color: #000;
+}
+
+
+
+
 .cancel_button{
    font-size: 12px;
     color: black(255, 0, 0, 0.69);

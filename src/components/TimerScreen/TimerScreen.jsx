@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef,useContext } from "react";
 import './TimerScreen.css';
 import 'animate.css';
 import { TimerData } from './TimerData';
@@ -9,15 +9,15 @@ import { BiReset, BiSolidUserVoice } from "react-icons/bi";
 import { PiBellRingingLight } from "react-icons/pi";
 import { MdAutoAwesome } from "react-icons/md";
 import PreTimer from "./PreTimer/PreTimer";
+import { TimerContext } from "../Context/TimerContext";
 
 
 // import JudgeView from '../../components/viewbygpt';
 
-
 const TimerScreen = () => {
     const [autoStart, setAutoStart] = useState(false)
     const [menu, setMenu] = useState(false)
-
+  const { timeId } = useContext(TimerContext);
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -26,6 +26,10 @@ const TimerScreen = () => {
     const [, setIsBellRinging] = useState(false);
     const [clickTimeout, setClickTimeout] = useState(null);
     const [animation, setAnimation] = useState("");
+
+
+
+    console.log(animation)
 
     const audioRef = useRef(new Audio('/warning.mp3'));
     const lastBellRef = useRef(new Audio('/last.mp3'));
@@ -44,7 +48,7 @@ const TimerScreen = () => {
     const warningTimeInSeconds = parseTimeToSeconds(TimerData[selectedTimerIndex].warning);
     const finalTimeInSeconds = parseTimeToSeconds(TimerData[selectedTimerIndex].final);
 
-    console.log(menu)
+    console.log(selectedTimerIndex)
     useEffect(() => {
         let timerInterval;
         if (isRunning) {
@@ -64,6 +68,8 @@ const TimerScreen = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time, warningTimeInSeconds, finalTimeInSeconds]);
+
+
 
     const displayFinalTimePlus3 = (timeStr) => {
         const [minutes, seconds] = timeStr.split(":").map(Number);
@@ -146,7 +152,7 @@ const TimerScreen = () => {
             setAlertMessage("");
             setAnimation(" ");
 
-        }, 500);
+        }, 1000);
     };
 
 
@@ -181,7 +187,7 @@ const TimerScreen = () => {
     const playWarningBell = () => {
         setDisbell(true);
         let countdown = 3;
-        setAlertMessage(`warning bell rings in ${countdown} seconds`);
+        setAlertMessage(`Warning bell rings in ${countdown} seconds`);
         setCancelVisible(true);
 
         clearInterval(countdownIntervalRef.current); // Clear any previous interval
@@ -227,7 +233,7 @@ const TimerScreen = () => {
 
         setInterval(() => {
             setAlertMessage("");
-            triggerAnimation("");
+           
         }, 1000);
     };
 
@@ -304,9 +310,10 @@ const TimerScreen = () => {
 </div>
 <div className="timer_left_container">
 
-    {menu? "": 
+    {menu?  <IoMdClose style={{zIndex:"10" , color:"white"}} 
+    onClick={()=>setMenu(!menu)} /> : 
     
-    <FaBarsStaggered style={{zIndex:"10"}} 
+    <FaBarsStaggered 
     onClick={()=>setMenu(!menu)}
     />
 }
@@ -359,12 +366,28 @@ const TimerScreen = () => {
 
                     <div className="warning_time">
                         <p className="Placeholder_text">Warning </p>
-                        <p className="time_sample">{TimerData[selectedTimerIndex].warning}</p>
+                        
+                        {autoStart? <p className="time_sample">
+                           
+                           {TimerData[timeId].warning}
+                           
+                           </p>:   <p className="time_sample">
+                           
+                           {TimerData[selectedTimerIndex].warning}
+                           
+                           </p> }
+
+
+                      
                     </div>
                     <div className="war_las_seperator"></div>
                     <div className="lat_time">
                         <p className="Placeholder_text">Final bell</p>
-                        <p className="time_sample">{displayFinalTimePlus3(TimerData[selectedTimerIndex].final)}</p>
+
+{autoStart? <p className="time_sample">{displayFinalTimePlus3(TimerData[timeId].final)}</p> :
+ <p className="time_sample">{displayFinalTimePlus3(TimerData[selectedTimerIndex].final)}</p>}
+
+                        
                     </div>
                     <div className="arrow_right time_slider"></div>
                 </div>

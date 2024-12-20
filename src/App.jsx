@@ -4,11 +4,13 @@ import TimerScreen from './components/TimerScreen/TimerScreen';
 const App = () => {
   return (
     <div>
-        
-<TimerScreen/>
 
+    
+        <TimerScreen />
+  
     </div>
   )
 }
 
 export default App
+

@@ -14,13 +14,20 @@ export const TimerData = [
     },
     {
         id: "3",
-        warning: "10:00",
+        warning: "12:00",
         final: "14:50",
         time: "15:00"
-    },    {
+    },   
+     {
         id: "4",
         warning: "00:05",
         final: "00:10",
         time: "00:20"
-    }
+    },
+        // {
+        //     id: "5",
+        //     warning: "",
+        //     final: "00:00",
+        //     time: "00:00"
+        // }
 ]

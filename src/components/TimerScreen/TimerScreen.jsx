@@ -158,8 +158,8 @@ console.log(finalTimeInSeconds)
 
 
     const autoLastBell = () => {
-        if (time > 290 && time < 300) {
-            if (window.confirm("Time is 290 seconds. Do you want to proceed with the final bell?")) {
+        if (time === 290 && selectedTimerIndex === 0) {
+            if (window.confirm("Do you want to proceed with the final bell?")) {
                 executeAutoLastBell();
             } else {
                 resetTimer();

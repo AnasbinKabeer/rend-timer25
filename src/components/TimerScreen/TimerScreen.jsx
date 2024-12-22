@@ -70,7 +70,7 @@ const TimerScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time, warningTimeInSeconds, finalTimeInSeconds]);
 
-
+console.log(finalTimeInSeconds)
 
     const displayFinalTimePlus3 = (timeStr) => {
         const [minutes, seconds] = timeStr.split(":").map(Number);
@@ -158,6 +158,21 @@ const TimerScreen = () => {
 
 
     const autoLastBell = () => {
+        if (time > 290 && time < 300) {
+            if (window.confirm("Time is 290 seconds. Do you want to proceed with the final bell?")) {
+                executeAutoLastBell();
+            } else {
+                resetTimer();
+                return; // Exit if user cancels
+            }
+        } else {
+           
+            executeAutoLastBell();
+       
+        }
+    };
+    
+    const executeAutoLastBell = () => {
         if (!autoBellEnabled) return; // Exit if auto bells are disabled
         setDisbell(true);
         let countdown = 10;
@@ -184,7 +199,7 @@ const TimerScreen = () => {
     
         autoLastBellRef.current.play();
     };
-
+    
 
 
 

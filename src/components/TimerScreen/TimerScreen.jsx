@@ -4,7 +4,7 @@ import './TimerScreen.css';
 import 'animate.css';
 import { TimerData } from './TimerData';
 import { IoMdClose } from "react-icons/io";
-import { FaCirclePlay, FaCirclePause, FaBarsStaggered, FaMoon } from "react-icons/fa6";
+import { FaCirclePlay, FaCirclePause, FaBarsStaggered } from "react-icons/fa6";
 import { BiReset, BiSolidUserVoice } from "react-icons/bi";
 import { PiBellRingingLight } from "react-icons/pi";
 import { MdAutoAwesome } from "react-icons/md";
